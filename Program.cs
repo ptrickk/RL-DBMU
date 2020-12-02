@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace CSharp_VS2019_SQL
+namespace RL_DMBU
 {
     class Program
     {
