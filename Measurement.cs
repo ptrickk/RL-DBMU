@@ -187,6 +187,8 @@ namespace RL_DMBU
     {
         private List<Measurement> _measurements = new List<Measurement>();
 
+        public int Count { get { return _measurements.Count; } }
+
         public bool HasMeasurement(Measurement measurement)
         {
             foreach (Measurement Lmeasurement in _measurements)
@@ -251,6 +253,12 @@ namespace RL_DMBU
             }
 
             return null;
+        }
+
+        public Measurement GetByIndex(int index)
+        {
+            if (index >= _measurements.Count) return null;
+            else return _measurements[index];
         }
 
         public MeasurementList GetByPlayerID(int playerID)

@@ -30,6 +30,11 @@ namespace RL_DMBU
 
             measurementList.PrintAll();
 
+            Console.WriteLine("Press any key to print measurements.");
+            Console.ReadLine();
+
+            getLatestMeasurment(measurementList, 1).Print();
+
             Console.ReadLine();
 
         }
@@ -174,6 +179,29 @@ namespace RL_DMBU
                 // Show any error message.
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        static Measurement getLatestMeasurment(MeasurementList list, int spielerID)
+        {
+            MeasurementList playerList = list.GetByPlayerID(spielerID);
+
+            DateTime newest = new DateTime();
+            Measurement newest_measurement = playerList.GetByIndex(0);
+
+            for(int i = 0; i < playerList.Count; i++)
+            {
+                Measurement current_measurement = playerList.GetByIndex(i);
+                DateTime current = current_measurement.Date;
+
+                if(i == 0 || newest < current)
+                {
+                    newest_measurement = current_measurement;
+                    newest = current;
+                }
+                
+            }
+
+            return newest_measurement;
         }
 
     }
