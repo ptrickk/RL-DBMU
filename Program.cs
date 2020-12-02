@@ -133,7 +133,7 @@ namespace RL_DMBU
 
             MySqlDataReader reader;
 
-            // Let's do it !
+            // Let's do it!
             try
             {
                 // Open the database
@@ -146,7 +146,7 @@ namespace RL_DMBU
                     while (reader.Read())
                     {
 
-                        Measurement m = new Measurement(
+                        Measurement measurment = new Measurement(
                             reader.GetInt32("MessungsID"),
                             reader.GetDateTime("Datum"),
                             reader.GetInt32("SpielerID")
@@ -154,10 +154,10 @@ namespace RL_DMBU
 
                         for (int i = 3; i < reader.FieldCount; i++)
                         {
-                            m.Add(reader.GetName(i), reader.GetInt32(reader.GetName(i)));
+                            measurment.Add(reader.GetName(i), reader.GetInt32(reader.GetName(i)));
                         }
 
-                        list.Add(m);
+                        list.Add(measurment);
                     }
 
                 }

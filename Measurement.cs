@@ -49,6 +49,7 @@ namespace RL_DMBU
         public void Print()
         {
             Console.WriteLine(_type.ToString() + " : " +  _name + ":\t\t\t" + _value);
+            //Console.SetCursorPosition(0, 0);
         }
     }
 
@@ -238,6 +239,30 @@ namespace RL_DMBU
             {
                 measurement.Print();
             }
+        }
+
+        public Measurement GetByID(int measurementID)
+        {
+            if(!HasMeasurementID(measurementID))return null;
+            
+            foreach(Measurement measurment in _measurements)
+            {
+                if (measurment.MeasurementID == measurementID) return measurment;
+            }
+
+            return null;
+        }
+
+        public MeasurementList GetByPlayerID(int playerID)
+        {
+            MeasurementList temp = new MeasurementList();
+
+            foreach (Measurement measurment in _measurements)
+            {
+                if (measurment.PlayerID == playerID) temp.Add(measurment);
+            }
+
+            return temp;
         }
     }
 }
