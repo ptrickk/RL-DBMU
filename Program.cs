@@ -100,7 +100,8 @@ namespace RL_DMBU
 
             int vorher = 0;
             int current = 0;
-            foreach (KeyValuePair<DateTime, int> s in Messung.getIntValueWithDate(Messung.getMessungenBySID(1, messungen), "Spiele"))
+            int spielerID = 2;
+            foreach (KeyValuePair<DateTime, int> s in Messung.getIntValueWithDate(Messung.getMessungenBySID(spielerID, messungen), "Spiele"))
             {
                 current = s.Value;
                 Console.WriteLine(current + " Differenz von: +" + (current - vorher) + " Datum: " + s.Key.ToShortDateString());
