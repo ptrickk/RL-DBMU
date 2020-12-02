@@ -4,10 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CSharp_VS2019_SQL
+namespace RL_DMBU
 {
+
+    enum MessungsType
+    {
+        INT,
+        DATE,
+        VARCHAR
+    }
+
+    class Messungsdaten
+    {
+        string Anzeigename;
+        string Value;
+        MessungsType Type;
+
+        public Messungsdaten(string name, string value, MessungsType type)
+        {
+            Value = value;
+            Anzeigename = name;
+            Type = type;
+        }
+
+        public Messungsdaten(string name, int value, MessungsType type)
+        {
+            Value = value.ToString();
+            Anzeigename = name;
+            Type = type;
+        }
+
+    }
+
     class Messung
     {
+
+        Dictionary<string, Messungsdaten> datenDict = new Dictionary<string, Messungsdaten>();
+        List<Messungsdaten> datenList = new List<Messungsdaten>();
 
         int ID;
         DateTime Date;
@@ -44,6 +77,10 @@ namespace CSharp_VS2019_SQL
             this.v3 = v3;
             this.v2 = v2;
             this.v1 = v1;
+
+            datenList.Add(new Messungsdaten("MessungsID", id, MessungsType.INT));
+            datenDict.Add("MessungsID", new Messungsdaten("MessungsID", id, MessungsType.INT));
+
         }
 
         public static List<Messung> getMessungenBySID(int SID, List<Messung> messungen)
