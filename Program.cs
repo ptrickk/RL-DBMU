@@ -30,6 +30,11 @@ namespace RL_DMBU
 
             measurementList.PrintAll();
 
+            Console.WriteLine("Press any key to print measurements.");
+            Console.ReadLine();
+
+            getLatestMeasurment(measurementList, 1).Print();
+
             Console.ReadLine();
 
         }
@@ -133,7 +138,7 @@ namespace RL_DMBU
 
             MySqlDataReader reader;
 
-            // Let's do it !
+            // Let's do it!
             try
             {
                 // Open the database
@@ -146,7 +151,7 @@ namespace RL_DMBU
                     while (reader.Read())
                     {
 
-                        Measurement m = new Measurement(
+                        Measurement measurment = new Measurement(
                             reader.GetInt32("MessungsID"),
                             reader.GetDateTime("Datum"),
                             reader.GetInt32("SpielerID")
@@ -154,10 +159,10 @@ namespace RL_DMBU
 
                         for (int i = 3; i < reader.FieldCount; i++)
                         {
-                            m.Add(reader.GetName(i), reader.GetInt32(reader.GetName(i)));
+                            measurment.Add(reader.GetName(i), reader.GetInt32(reader.GetName(i)));
                         }
 
-                        list.Add(m);
+                        list.Add(measurment);
                     }
 
                 }
@@ -174,6 +179,29 @@ namespace RL_DMBU
                 // Show any error message.
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        static Measurement getLatestMeasurment(MeasurementList list, int spielerID)
+        {
+            MeasurementList playerList = list.GetByPlayerID(spielerID);
+
+            DateTime newest = new DateTime();
+            Measurement newest_measurement = playerList.GetByIndex(0);
+
+            for(int i = 0; i < playerList.Count; i++)
+            {
+                Measurement current_measurement = playerList.GetByIndex(i);
+                DateTime current = current_measurement.Date;
+
+                if(i == 0 || newest < current)
+                {
+                    newest_measurement = current_measurement;
+                    newest = current;
+                }
+                
+            }
+
+            return newest_measurement;
         }
 
     }
