@@ -17,59 +17,8 @@ namespace RL_DMBU
             PlayerList playerList = new PlayerList();
             MeasurementList measurementList = new MeasurementList();
 
-            
-
-            string measurementQuery = "SELECT * FROM messung Order by Datum ASC";
-
-            MySqlConnection connection = EstablishConnection();
-            MySqlCommand measurementCommand = new MySqlCommand(measurementQuery, connection);
-            measurementCommand.CommandTimeout = 60;
-
-            MySqlDataReader reader;
-
-            // Let's do it !
-            try
-            {
-                // Open the database
-                OpenConnection(connection);
-                
-                reader = measurementCommand.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-
-                        Measurement m = new Measurement(
-                            reader.GetInt32("MessungsID"),
-                            reader.GetDateTime("Datum"),
-                            reader.GetInt32("SpielerID")
-                            );
-
-                        for (int i = 3; i < reader.FieldCount; i++)
-                        {
-                            m.Add(reader.GetName(i), reader.GetInt32(reader.GetName(i)));
-                        }
-
-                        measurementList.Add(m);
-                    }
-
-                }
-                else
-                {
-                    Console.WriteLine("No rows found.");
-                }
-
-                // Finally close the connection
-                CloseConnection(connection);
-            }
-            catch (Exception ex)
-            {
-                // Show any error message.
-                Console.WriteLine(ex.ToString());
-            }
-
-            QueryPlayers(playerList);
+            FetchPlayers(playerList);
+            FetchMeasurements(measurementList);
 
             Console.WriteLine("Alle Daten wurden eingelesen.");
             Console.ReadLine();
@@ -126,7 +75,12 @@ namespace RL_DMBU
             }
         }
 
-        static void QueryPlayers(PlayerList list)
+        static void AddPlayer(string name, string playername)
+        {
+            ExecuteQuery("INSERT INTO `spieler` (`SpielerID`, `Name`, `Spielername`) VALUES (NULL, '" + name + "', '" + playername + "');");
+        }
+
+        static void FetchPlayers(PlayerList list)
         {
             PlayerList playerList = list;
 
@@ -135,7 +89,6 @@ namespace RL_DMBU
             MySqlConnection connection = EstablishConnection();
             MySqlCommand playerCommand = new MySqlCommand(playerQuery, connection);
             playerCommand.CommandTimeout = 60;
-
 
             MySqlDataReader reader;
 
@@ -161,6 +114,59 @@ namespace RL_DMBU
 
                 reader.Close();
 
+                CloseConnection(connection);
+            }
+            catch (Exception ex)
+            {
+                // Show any error message.
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        static void FetchMeasurements(MeasurementList list)
+        {
+            string measurementQuery = "SELECT * FROM messung Order by Datum ASC";
+
+            MySqlConnection connection = EstablishConnection();
+            MySqlCommand measurementCommand = new MySqlCommand(measurementQuery, connection);
+            measurementCommand.CommandTimeout = 60;
+
+            MySqlDataReader reader;
+
+            // Let's do it !
+            try
+            {
+                // Open the database
+                OpenConnection(connection);
+
+                reader = measurementCommand.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        Measurement m = new Measurement(
+                            reader.GetInt32("MessungsID"),
+                            reader.GetDateTime("Datum"),
+                            reader.GetInt32("SpielerID")
+                            );
+
+                        for (int i = 3; i < reader.FieldCount; i++)
+                        {
+                            m.Add(reader.GetName(i), reader.GetInt32(reader.GetName(i)));
+                        }
+
+                        list.Add(m);
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("No rows found.");
+                }
+
+                // Finally close the connection
                 CloseConnection(connection);
             }
             catch (Exception ex)
