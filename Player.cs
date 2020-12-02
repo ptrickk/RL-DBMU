@@ -92,6 +92,11 @@ namespace RL_DMBU
             }
         }
 
+        public void Clear()
+        {
+            _players.Clear();
+        }
+
         public void PrintAll()
         {
             foreach (Player player in _players)

@@ -227,6 +227,11 @@ namespace RL_DMBU
             }
         }
 
+        public void Clear()
+        {
+            _measurements.Clear();
+        }
+
         public void PrintAll()
         {
             foreach (Measurement measurement in _measurements)
