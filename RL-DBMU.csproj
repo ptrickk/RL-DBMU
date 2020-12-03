@@ -44,10 +44,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandExecuter.cs" />
+    <Compile Include="CommandListener.cs" />
+    <Compile Include="Commands\HelpCommandExecutor.cs" />
     <Compile Include="ConsoleCommand.cs" />
     <Compile Include="Measurement.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
