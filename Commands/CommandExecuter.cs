@@ -10,7 +10,12 @@ namespace Commands
     public abstract class CommandExecuter
     {
         public string[] alias = { };
+        public string helpMessage;
         public abstract void Execute(string cmd, string[] args);
+        protected virtual void PrintHelp()
+        {
+            Utils.WriteLine(helpMessage);
+        }
 
     }
 }

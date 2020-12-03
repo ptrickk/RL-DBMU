@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using Commands;
+using System.Windows.Forms;
 
 namespace RL_DBMU
 {
@@ -16,19 +17,21 @@ namespace RL_DBMU
         private static MeasurementList _measurementList = new MeasurementList();
         private static bool running = false;
 
-        public static PlayerList PlayerList { get { return _playerList; } }
-        public static MeasurementList MeasurementList { get { return _measurementList; } }
-
+        public static PlayerList PlayerList { get { return _playerList; } set { _playerList = value; } }
+        public static MeasurementList MeasurementList { get { return _measurementList; } set { _measurementList = value; } }
+        
+        [STAThread]
         static void Main(string[] args)
         {
-
             CommandListener.Add("help", new HelpCommandExecuter());
             CommandListener.Add("logout", new LogoutCommandExecuter());
             CommandListener.Add("list", new ListCommandExecuter());
             CommandListener.Add("fetch", new FetchCommandExecuter());
             CommandListener.Add("sql", new SQLCommandExecuter());
+            CommandListener.Add("chart", new ChartCommandExecuter());
 
             running = true;
+            
 
             while (running)
             {

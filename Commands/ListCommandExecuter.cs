@@ -61,6 +61,7 @@ namespace Commands
                             if (Program.PlayerList.IsEmpty)
                             {
                                 Utils.WriteLine("§fDie Spielerliste ist leer.");
+                                Utils.WriteLine("§8Entweder ist die Datenbank leer oder du musst noch §7fetch pl §8benutzen");
                             }
                             else
                             {
@@ -70,7 +71,7 @@ namespace Commands
                                 }
                                 else
                                 {
-                                    Utils.WriteLine("§fDie Spielerliste enthält keinen Spieler mit der Nummer §c" + id);
+                                    Utils.WriteLine("§fDie Spielerliste enthält keinen Spieler mit der Spielernummer §c" + id);
                                 }
                             }
                         }
@@ -79,6 +80,7 @@ namespace Commands
                             if (Program.MeasurementList.IsEmpty)
                             {
                                 Utils.WriteLine("§fDie Messungsliste ist leer.");
+                                Utils.WriteLine("§8Entweder ist die Datenbank leer oder du musst noch §7fetch m §8benutzen");
                             }
                             else
                             {
@@ -88,7 +90,7 @@ namespace Commands
                                 }
                                 else
                                 {
-                                    Utils.WriteLine("§fDie Messungsliste enthält keine Messung mit der Nummer §c" + id);
+                                    Utils.WriteLine("§fDie Messungsliste enthält keine Messung mit der Messungsnummer §c" + id);
                                 }
                             }
                         }
