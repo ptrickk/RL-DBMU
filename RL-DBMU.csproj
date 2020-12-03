@@ -44,9 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandExecuter.cs" />
+    <Compile Include="Commands\CommandExecuter.cs" />
     <Compile Include="CommandListener.cs" />
-    <Compile Include="Commands\HelpCommandExecutor.cs" />
+    <Compile Include="Commands\FetchCommandExecuter.cs" />
+    <Compile Include="Commands\HelpCommandExecuter.cs" />
+    <Compile Include="Commands\ListCommandExecuter.cs" />
+    <Compile Include="Commands\LogoutCommandExecuter.cs" />
+    <Compile Include="Commands\SQLCommandExecuter.cs" />
     <Compile Include="ConsoleCommand.cs" />
     <Compile Include="Measurement.cs" />
     <Compile Include="Player.cs" />
