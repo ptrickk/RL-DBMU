@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using RL_DBMU;
+using Commands;
 
 namespace RL_DMBU
 {
@@ -16,13 +18,16 @@ namespace RL_DMBU
         static void Main(string[] args)
         {
 
+            CommandListener.Add("help", new HelpCommandExecutor());
+
+
             PlayerList playerList = new PlayerList();
             MeasurementList measurementList = new MeasurementList();
 
             FetchPlayers(playerList);
             FetchMeasurements(measurementList);
 
-            WriteLine("Alle Daten wurden eingelesen.");
+            Utils.WriteLine("Alle Daten wurden eingelesen.");
             Console.ReadLine();
 
             running = true;
@@ -31,23 +36,13 @@ namespace RL_DMBU
             {
 
                 ConsoleCommand cmd = new ConsoleCommand(Console.ReadLine());
-
-                if (cmd.Command == "help")
-                {
-                    if (cmd.ArgumentCount == 0)
-                    {
-                        WriteLine("§ehelp §f: Lists all commands");
-                        WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
-                        WriteLine("§eq §f: Closes command prompt");
-                        WriteLine("§elogout §f: Closes command prompt");
-                    }
-                }
+                CommandListener.CheckCommand(cmd);
 
                 if (cmd.Command == "list")
                 {
                     if (cmd.ArgumentCount == 0)
                     {
-                        WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
+                        Utils.WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
                     }
                     else if (cmd.ArgumentCount == 1)
                     {
@@ -61,12 +56,12 @@ namespace RL_DMBU
                         }
                         else
                         {
-                            WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
+                            Utils.WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
                         }
                     }
                     else if (cmd.ArgumentCount == 2)
                     {
-                        WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
+                        Utils.WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
                     }
                     else if (cmd.ArgumentCount == 3)
                     {
@@ -81,7 +76,7 @@ namespace RL_DMBU
                                 }
                                 else
                                 {
-                                    WriteLine("§fKein Spieler mit der SpielerID §e" + id + " §fgefunden");
+                                    Utils.WriteLine("§fKein Spieler mit der SpielerID §e" + id + " §fgefunden");
                                 }
                             }
                             else if (cmd.Arguments[0] == "m")
@@ -92,18 +87,18 @@ namespace RL_DMBU
                                 }
                                 else
                                 {
-                                    WriteLine("§fKeine Messung mit der MessungsID §e" + id + " §fgefunden");
+                                    Utils.WriteLine("§fKeine Messung mit der MessungsID §e" + id + " §fgefunden");
                                 }
                             }
                             else
                             {
-                                WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
+                                Utils.WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
                             }
                         }
                     }
                     else
                     {
-                        WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
+                        Utils.WriteLine("§elist §f[§epl | m§f] §8-i <id>§f: Lists data from given database");
                     }
                 }
 
@@ -116,93 +111,7 @@ namespace RL_DMBU
 
         }
 
-        static void WriteLine(string raw)
-        {
-            raw = raw.Replace("§", "$§");
-            string[] strings = raw.Split('$');
-            bool background = false;
-            foreach (string str in strings)
-            {
-                //background = false;
-                string temp = str;
-                ConsoleColor color = ConsoleColor.White;
-                if (str.StartsWith("§"))
-                {
-                    string colorCode = str.Substring(str.IndexOf("§"), 2);
-                    temp = str.Replace(colorCode, null);
-                    switch (colorCode)
-                    {
-                        case "§l":
-                            //background = true;
-                            break;
-                        case "§0":
-                            color = ConsoleColor.Black;
-                            break;
-                        case "§1":
-                            color = ConsoleColor.DarkBlue;
-                            break;
-                        case "§2":
-                            color = ConsoleColor.DarkGreen;
-                            break;
-                        case "§3":
-                            color = ConsoleColor.DarkCyan;
-                            break;
-                        case "§4":
-                            color = ConsoleColor.DarkRed;
-                            break;
-                        case "§5":
-                            color = ConsoleColor.DarkMagenta;
-                            break;
-                        case "§6":
-                            color = ConsoleColor.DarkYellow;
-                            break;
-                        case "§7":
-                            color = ConsoleColor.Gray;
-                            break;
-                        case "§8":
-                            color = ConsoleColor.DarkGray;
-                            break;
-                        case "§9":
-                            color = ConsoleColor.Blue;
-                            break;
-                        case "§a":
-                            color = ConsoleColor.Green;
-                            break;
-                        case "§b":
-                            color = ConsoleColor.Cyan;
-                            break;
-                        case "§c":
-                            color = ConsoleColor.Red;
-                            break;
-                        case "§d":
-                            color = ConsoleColor.Magenta;
-                            break;
-                        case "§e":
-                            color = ConsoleColor.Yellow;
-                            break;
-                        case "§f":
-                            color = ConsoleColor.White;
-                            break;
-                    }
-                }
-                if (background)
-                {
-                    if (color == ConsoleColor.White)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Black;
-                    }
-                    Console.BackgroundColor = color;
-                }
-                else
-                {
-                    Console.ForegroundColor = color;
-                }
-                Console.Write(temp);
-            }
-            Console.Write("\n");
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.White;
-        }
+        
 
         static MySqlConnection EstablishConnection()
         {
