@@ -75,6 +75,20 @@ namespace RL_DMBU
             return false;
         }
 
+        public Player GetPlayerByPlayerID(int playerID)
+        {
+            if (HasPlayerID(playerID))
+            {
+                foreach (Player player in _players) {
+                    if (player.PlayerID == playerID)
+                    {
+                        return player;
+                    }
+                }
+            }
+            return null;
+        }
+
         public void Add(Player player)
         {
             if (HasPlayer(player))
