@@ -42,8 +42,7 @@ namespace RL_DMBU
                         WriteLine("§elogout §f: Closes command prompt");
                     }
                 }
-
-                if (cmd.Command == "list")
+                else if (cmd.Command == "list")
                 {
                     if (cmd.ArgumentCount == 0)
                     {
