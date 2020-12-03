@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RL_DMBU;
+using Commands;
+using RL_DBMU;
 
 namespace RL_DBMU
 {
@@ -19,10 +20,17 @@ namespace RL_DBMU
 
         public static int CheckCommand(ConsoleCommand command)
         {
-            if (_executers.ContainsKey(command.Command))
+            if (command.Command.Length == 0)
             {
-                _executers[command.Command].Execute(command.Command, command.Arguments);
-                return 1;
+                return 2;
+            }
+            foreach (KeyValuePair<string, CommandExecuter> pair in _executers)
+            {
+                if (pair.Key == command.Command || pair.Value.alias.Contains(command.Command))
+                {
+                    pair.Value.Execute(command.Command, command.Arguments);
+                    return 1;
+                }
             }
             return 0;
         }

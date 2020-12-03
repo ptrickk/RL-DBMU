@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RL_DMBU
+namespace RL_DBMU
 {
 
     public enum MeasurementDataType
@@ -102,45 +102,6 @@ namespace RL_DMBU
             _measurementData.Add(data);
         }
 
-        /*public Measurement(int measurementID, DateTime date, int playerID, int games, int wins, int goals, int torschüsse, int vorlagen, int paraden, int hereingaben, int befreiungsschläge, int retter, int zerstörungen, int v3, int v2, int v1)
-        {
-            _measurementID = measurementID;
-            _date = date;
-            _playerID = playerID;
-
-            datenList.Add(new MeasurementData("Spiele", , MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Siege", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Tore", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Torschüsse", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Vorlagen", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Paraden", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Hereingaben", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Befreiungsschläge", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Retter", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("Zerstörungen", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("3v3", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("2v2", id, MeasurementDataType.INT));
-            datenList.Add(new MeasurementData("1v1", id, MeasurementDataType.INT));
-
-            datenDict.Add("null", new MeasurementData("MessungsID", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Datum", id, MeasurementDataType.DATE));
-            datenDict.Add("null", new MeasurementData("SpielerID", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Spiele", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Siege", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Tore", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Torschüsse", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Vorlagen", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Paraden", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Hereingaben", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Befreiungsschläge", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Retter", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("Zerstörungen", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("3v3", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("2v2", id, MeasurementDataType.INT));
-            datenDict.Add("null", new MeasurementData("1v1", id, MeasurementDataType.INT));
-
-        }*/
-
         public bool HasMeasurementWithName(string name)
         {
             foreach (MeasurementData data in _measurementData)
@@ -188,6 +149,7 @@ namespace RL_DMBU
         private List<Measurement> _measurements = new List<Measurement>();
 
         public int Count { get { return _measurements.Count; } }
+        public bool IsEmpty { get { return _measurements.Count == 0; } }
 
         public bool HasMeasurement(Measurement measurement)
         {
@@ -243,34 +205,87 @@ namespace RL_DMBU
             }
         }
 
-        public Measurement GetByID(int measurementID)
+        public Measurement GetMeasurementByMeasurementID(int measurementID)
         {
-            if(!HasMeasurementID(measurementID))return null;
-            
-            foreach(Measurement measurment in _measurements)
+            if (HasMeasurementID(measurementID))
             {
-                if (measurment.MeasurementID == measurementID) return measurment;
+                foreach (Measurement measurment in _measurements)
+                {
+                    if (measurment.MeasurementID == measurementID) 
+                    { 
+                        return measurment; 
+                    }
+                }
             }
-
             return null;
         }
 
-        public Measurement GetByIndex(int index)
+        public Measurement GetByListIndex(int index)
         {
-            if (index >= _measurements.Count) return null;
-            else return _measurements[index];
+            if (index < _measurements.Count) 
+            {
+                return _measurements[index];
+            }
+            return null;
         }
 
-        public MeasurementList GetByPlayerID(int playerID)
+        public bool HasMeasurementsWithPlayerID(int playerID)
         {
-            MeasurementList temp = new MeasurementList();
-
-            foreach (Measurement measurment in _measurements)
+            foreach (Measurement measurement in _measurements)
             {
-                if (measurment.PlayerID == playerID) temp.Add(measurment);
+                if (measurement.PlayerID == playerID)
+                {
+                    return true;
+                }
             }
+            return false;
+        }
 
+        public MeasurementList GetListByPlayerID(int playerID)
+        {
+            MeasurementList temp = null;
+            if (HasMeasurementsWithPlayerID(playerID))
+            {
+                temp = new MeasurementList();
+
+                foreach (Measurement measurment in _measurements)
+                {
+                    if (measurment.PlayerID == playerID)
+                    {
+                        temp.Add(measurment);
+                    }
+                }
+            }
             return temp;
         }
+
+        public Measurement GetLatestMeasurementFromPlayerByPlayerID(int playerID)
+        {
+            MeasurementList playerList = GetListByPlayerID(playerID);
+
+            if (playerList == null)
+            {
+                return null;
+            }
+
+            DateTime latest = new DateTime();
+            Measurement latestMeasurement = playerList.GetByListIndex(0);
+
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                Measurement current_measurement = playerList.GetByListIndex(i);
+                DateTime current = current_measurement.Date;
+
+                if (i == 0 || latest < current)
+                {
+                    latestMeasurement = current_measurement;
+                    latest = current;
+                }
+
+            }
+
+            return latestMeasurement;
+        }
+
     }
 }
