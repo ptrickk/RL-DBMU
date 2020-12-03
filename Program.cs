@@ -315,7 +315,7 @@ namespace RL_DMBU
                     while (reader.Read())
                     {
 
-                        Measurement m = new Measurement(
+                        Measurement measurement = new Measurement(
                             reader.GetInt32("MessungsID"),
                             reader.GetDateTime("Datum"),
                             reader.GetInt32("SpielerID")
@@ -323,10 +323,10 @@ namespace RL_DMBU
 
                         for (int i = 3; i < reader.FieldCount; i++)
                         {
-                            m.Add(reader.GetName(i), reader.GetInt32(reader.GetName(i)));
+                            measurement.Add(reader.GetName(i), reader.GetInt32(reader.GetName(i)));
                         }
 
-                        list.Add(m);
+                        list.Add(measurement);
                     }
 
                 }
