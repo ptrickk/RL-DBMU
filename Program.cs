@@ -88,7 +88,7 @@ namespace RL_DMBU
                             {
                                 if (measurementList.HasMeasurementID(id))
                                 {
-
+                                    measurementList.GetByID(id).Print();
                                 }
                                 else
                                 {
