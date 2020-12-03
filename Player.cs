@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,12 +36,17 @@ namespace RL_DBMU
 
     }
 
-    public class PlayerList
+    public class PlayerList : IEnumerable
     {
         private List<Player> _players = new List<Player>();
 
         public int Count { get { return _players.Count; } }
         public bool IsEmpty { get { return _players.Count == 0; } }
+        public Player this[int index]
+        {
+            get { return _players[index]; }
+            set { _players[index] = value; }
+        }
 
         public bool HasPlayer(Player player)
         {
@@ -120,6 +126,11 @@ namespace RL_DBMU
             {
                 player.Print();
             }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return _players.GetEnumerator();
         }
     }
 }

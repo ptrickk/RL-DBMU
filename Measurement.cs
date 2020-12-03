@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -144,12 +145,17 @@ namespace RL_DBMU
 
     }
 
-    public class MeasurementList
+    public class MeasurementList : IEnumerable
     {
         private List<Measurement> _measurements = new List<Measurement>();
 
         public int Count { get { return _measurements.Count; } }
         public bool IsEmpty { get { return _measurements.Count == 0; } }
+        public Measurement this[int index]
+        {
+            get { return _measurements[index]; }
+            set { _measurements[index] = value; }
+        }
 
         public bool HasMeasurement(Measurement measurement)
         {
@@ -287,5 +293,9 @@ namespace RL_DBMU
             return latestMeasurement;
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            return _measurements.GetEnumerator();
+        }
     }
 }
