@@ -13,7 +13,7 @@ namespace RL_DBMU
 
         public static MySqlConnection EstablishConnection()
         {
-            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=rocketleague;";
+            string connectionString = "datasource=dbhhsk8l.mariadb.hosting.zone;port=3306;username=dbhhsk8l_2dxfldo;password=hurensohn123!;database=dbhhsk8l;";
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             return databaseConnection;
         }

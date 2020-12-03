@@ -31,7 +31,6 @@ namespace RL_DBMU
             CommandListener.Add("chart", new ChartCommandExecuter());
 
             running = true;
-            
 
             while (running)
             {
