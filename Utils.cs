@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace RL_DBMU
 
         public static MySqlConnection EstablishConnection()
         {
-            string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=rocketleague;";
+            string connectionString = "datasource=dbhhsk8l.mariadb.hosting.zone;port=3306;username=dbhhsk8l_2dxfldo;password=hurensohn123!;database=dbhhsk8l;";
             MySqlConnection databaseConnection = new MySqlConnection(connectionString);
             return databaseConnection;
         }
@@ -154,6 +155,20 @@ namespace RL_DBMU
             }
         }
 
+        public static string RemoveDiacritics(string s)
+        {
+            string normalizedString = s.Normalize(NormalizationForm.FormD);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < normalizedString.Length; i++)
+            {
+                char c = normalizedString[i];
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                    stringBuilder.Append(c);
+            }
+
+            return stringBuilder.ToString();
+        }
         public static void WriteLine(string raw)
         {
             raw = raw.Replace("§", "$§");
