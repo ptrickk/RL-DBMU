@@ -29,6 +29,7 @@ namespace RL_DBMU
             CommandListener.Add("fetch", new FetchCommandExecuter());
             CommandListener.Add("sql", new SQLCommandExecuter());
             CommandListener.Add("chart", new ChartCommandExecuter());
+            CommandListener.Add("add", new AddCommandExecuter());
 
             running = true;
 

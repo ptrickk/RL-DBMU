@@ -54,7 +54,7 @@ namespace RL_DBMU
         }
     }
 
-    public class Measurement
+    public class Measurement : IEnumerable
     {
 
         private List<MeasurementData> _measurementData = new List<MeasurementData>();
@@ -143,6 +143,10 @@ namespace RL_DBMU
             Console.WriteLine();
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            return _measurementData.GetEnumerator();
+        }
     }
 
     public class MeasurementList : IEnumerable
