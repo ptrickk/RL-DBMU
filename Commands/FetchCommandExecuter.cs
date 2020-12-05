@@ -13,7 +13,7 @@ namespace Commands
         {
             if (args.Length == 0)
             {
-                Utils.WriteLine("§efetch <§7pl§e|§7m§e>");
+                Utils.WriteLine("§efetch <§7pl§e|§7m§e|§7a§e>");
             }
             else if (args.Length == 1)
             {
@@ -25,6 +25,16 @@ namespace Commands
                 }
                 else if (args[0] == "m")
                 {
+                    Utils.WriteLine("§fMessungsdaten werden abgerufen...");
+                    Utils.FetchMeasurements(Program.MeasurementList);
+                    Utils.WriteLine("§fMessungsdaten wurden abgerufen.");
+                }
+                else if (args[0] == "a")
+                {
+                    Utils.WriteLine("§fSpielerdaten werden abgerufen...");
+                    Utils.FetchPlayers(Program.PlayerList);
+                    Utils.WriteLine("§fSpielerdaten wurden abgerufen.");
+                    Utils.WriteLine("");
                     Utils.WriteLine("§fMessungsdaten werden abgerufen...");
                     Utils.FetchMeasurements(Program.MeasurementList);
                     Utils.WriteLine("§fMessungsdaten wurden abgerufen.");

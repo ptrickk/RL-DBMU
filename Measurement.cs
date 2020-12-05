@@ -95,7 +95,7 @@ namespace RL_DBMU
     /// <summary>
     /// stores and manages a row of data from the messung-table
     /// </summary>
-    public class Measurement
+    public class Measurement : IEnumerable
     {
         /// <summary>
         /// stores the segments of the measurment
@@ -231,6 +231,10 @@ namespace RL_DBMU
             Console.WriteLine();
         }
 
+        public IEnumerator GetEnumerator()
+        {
+            return _measurementData.GetEnumerator();
+        }
     }
     /// <summary>
     /// stores and manages all the data from the messung-table
