@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RL_DMBU
+namespace RL_DBMU
 {
     public class ConsoleCommand
     {
