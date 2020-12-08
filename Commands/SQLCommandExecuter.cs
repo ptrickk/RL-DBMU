@@ -28,7 +28,7 @@ namespace Commands
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             string name = reader.GetName(i);
-                            Utils.Write("§f" + name + " §7| ");
+                            Utils.Write($"§f{name,-8}§7|");
                         }
                         Console.WriteLine();
 
@@ -38,7 +38,7 @@ namespace Commands
                             {
                                 string name = reader.GetName(i);
                                 string value = reader.GetString(name);
-                                Utils.Write("§6" + value + " §7| ");
+                                Utils.Write($"§6{value,-8}§7|");
                             }
                             Console.WriteLine();
                         }
