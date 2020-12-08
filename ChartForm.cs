@@ -29,8 +29,8 @@ namespace RL_DBMU
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this._chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.fields = new System.Windows.Forms.CheckedListBox();
             this.diff = new System.Windows.Forms.CheckBox();
@@ -46,13 +46,13 @@ namespace RL_DBMU
             // 
             // _chart
             // 
-            chartArea4.Name = "ChartArea1";
-            this._chart.ChartAreas.Add(chartArea4);
+            chartArea1.Name = "ChartArea1";
+            this._chart.ChartAreas.Add(chartArea1);
             this._chart.Cursor = System.Windows.Forms.Cursors.Default;
             this._chart.DataSource = this._chart.Images;
             this._chart.ImeMode = System.Windows.Forms.ImeMode.Off;
-            legend4.Name = "Legend1";
-            this._chart.Legends.Add(legend4);
+            legend1.Name = "Legend1";
+            this._chart.Legends.Add(legend1);
             this._chart.Location = new System.Drawing.Point(148, 57);
             this._chart.Name = "_chart";
             this._chart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
@@ -153,8 +153,8 @@ namespace RL_DBMU
             this.comboBox1.Items.AddRange(new object[] {
             "Line",
             "Spline",
-            "SplineArea",
-            "Area"});
+            "Balken",
+            "Punkt"});
             this.comboBox1.Location = new System.Drawing.Point(13, 310);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
@@ -241,13 +241,13 @@ namespace RL_DBMU
             {
                 type = SeriesChartType.Spline;
             }
-            else if (comboBox1.Text == "SplineArea")
+            else if (comboBox1.Text == "Balken")
             {
-                type = SeriesChartType.SplineArea;
+                type = SeriesChartType.Column;
             }
-            else if (comboBox1.Text == "Area")
+            else if (comboBox1.Text == "Punkt")
             {
-                type = SeriesChartType.Area;
+                type = SeriesChartType.Point;
             }
             if (diff.Checked)
             {
