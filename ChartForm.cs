@@ -175,6 +175,7 @@ namespace RL_DBMU
             this.Controls.Add(this.fields);
             this.Controls.Add(this._chart);
             this.Name = "ChartForm";
+            this.Load += new System.EventHandler(this.ChartForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this._chart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
@@ -336,6 +337,11 @@ namespace RL_DBMU
         private void showValues_CheckedChanged(object sender, EventArgs e)
         {
             generate();
+        }
+
+        private void ChartForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
