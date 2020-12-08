@@ -27,10 +27,11 @@ namespace RL_DBMU
 
         public void Print()
         {
-            Utils.WriteLine("§8---§7--- §f" + _playerName + " §7---§8---");
-            Utils.WriteLine("§6ID:\t\t\t§e" + _playerID);
-            Utils.WriteLine("§6Name:\t\t\t§e" + _name);
-            Utils.WriteLine("§6Playername:\t\t§e" + _playerName);
+            const int space = -30;
+            Utils.WriteLine($"§8---§7--- §f{_playerName} §7---§8---");
+            Utils.WriteLine($"{"§6ID:§e",space}{_playerID}");
+            Utils.WriteLine($"{"§6Name:§e",space}{_name}");
+            Utils.WriteLine($"{"§6Playername:§e",space}{_playerName}");
             Utils.WriteLine("");
         }
 

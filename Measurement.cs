@@ -88,8 +88,7 @@ namespace RL_DBMU
         /// </summary>
         public void Print()
         {
-            Console.WriteLine(_type.ToString() + " : " +  _name + ":\t\t\t" + _value);
-            //Console.SetCursorPosition(0, 0);
+            Utils.WriteLine($"§8{_type,-5}§6{_name,-25}§e{_value}");
         }
     }
     /// <summary>
@@ -220,10 +219,13 @@ namespace RL_DBMU
         /// </summary>
         public void Print()
         {
-            Console.WriteLine("-- Measurement --");
-            Console.WriteLine("MeasurementID:\t\t" + _measurementID);
-            Console.WriteLine("Date:\t\t\t" + _date.Day + "." + _date.Month + "." + _date.Year);
-            Console.WriteLine("PlayerID:\t\t" + _playerID);
+            const int space = -34;
+            Utils.WriteLine($"§8---§7--- §fMeasurement §7---§8---");
+            Utils.WriteLine($"{"§6MeasurementID:§e",space}{_playerID}");
+            Utils.WriteLine($"{"§6Date:§e",space}{_date.Day + "." + _date.Month + "." + _date.Year}");
+            Utils.WriteLine($"{"§6PlayerID:§e",space}{_playerID}");
+            Utils.WriteLine("");
+
             foreach (MeasurementData data in _measurementData)
             {
                 data.Print();
